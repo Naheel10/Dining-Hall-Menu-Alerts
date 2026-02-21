@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="h3">Dashboard</h1>
+<p class="text-muted">Manage your favorites and alert preferences.</p>
+
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h5">Favorite items</h2>
+        <form method="post" class="d-flex mb-3">
+          <input type="hidden" name="action" value="add_favorite" />
+          <input class="form-control me-2" name="item_name" placeholder="e.g. Chicken Tikka" />
+          <button class="btn btn-danger" type="submit">Add</button>
+        </form>
+
+        <ul class="list-group">
+          {% for fav in favorites %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ fav.item_name }}
+            <form method="post">
+              <input type="hidden" name="action" value="delete_favorite" />
+              <input type="hidden" name="favorite_id" value="{{ fav.id }}" />
+              <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+            </form>
+          </li>
+          {% else %}
+          <li class="list-group-item text-muted">No favorites yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h2 class="h5">Preferences</h2>
+        <form method="post">
+          <input type="hidden" name="action" value="update_preferences" />
+          <div class="mb-3">
+            <label class="form-label">Dining halls</label>
+            {% for hall in dining_halls_options %}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="dining_halls" value="{{ hall }}" {% if hall in user.dining_halls_list() %}checked{% endif %}>
+              <label class="form-check-label">{{ hall }}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Meals</label>
+            {% for meal in meal_options %}
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="meals" value="{{ meal }}" {% if meal in user.meals_list() %}checked{% endif %}>
+              <label class="form-check-label">{{ meal }}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notification frequency</label>
+            <select class="form-select" name="notification_frequency">
+              <option value="every_morning" {% if user.notification_frequency == 'every_morning' %}selected{% endif %}>Check every morning</option>
+              <option value="once_per_day" {% if user.notification_frequency == 'once_per_day' %}selected{% endif %}>Check once per day</option>
+            </select>
+          </div>
+          <button class="btn btn-danger" type="submit">Save preferences</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Upcoming matches</h2>
+          <form method="post">
+            <input type="hidden" name="action" value="manual_check" />
+            <button class="btn btn-outline-primary btn-sm" type="submit">Check menus now</button>
+          </form>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Favorite</th><th>Menu item</th><th>Dining hall</th><th>Meal</th><th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for match in upcoming_matches %}
+              <tr>
+                <td>{{ match.favorite_item_name }}</td>
+                <td>{{ match.menu_item_name }}</td>
+                <td>{{ match.dining_hall }}</td>
+                <td>{{ match.meal or 'N/A' }}</td>
+                <td>{{ match.menu_date }}</td>
+              </tr>
+              {% else %}
+              <tr><td colspan="5" class="text-muted">No matches yet. Run a check to populate this table.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
