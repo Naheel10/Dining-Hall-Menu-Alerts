@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+          <h1 class="h3 mb-1">Your Dining Alerts Dashboard</h1>
+          <p class="mb-0 text-muted">Signed in as <strong>{{ user.email }}</strong></p>
+        </div>
+        <div class="text-md-end">
+          <div class="small text-muted">Last manual check</div>
+          <div class="fw-semibold">{{ user.last_checked_at.strftime('%b %d, %Y at %I:%M %p UTC') if user.last_checked_at else 'Never' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h2 class="h5">Favorite items</h2>
+        <form method="post" class="d-flex mb-3">
+          <input type="hidden" name="action" value="add_favorite" />
+          <input class="form-control me-2" name="item_name" placeholder="Add item e.g. Chicken Tikka" />
+          <button class="btn btn-danger" type="submit">Add</button>
+        </form>
+
+        <div class="d-grid gap-2">
+          {% for fav in favorites %}
+          <div class="border rounded p-3 bg-light-subtle">
+            <div class="d-flex justify-content-between align-items-center gap-2">
+              <div>
+                <div class="fw-semibold">{{ fav.item_name }}</div>
+                <div class="small text-muted">
+                  Halls: {{ user.dining_halls or 'All halls' }} · Meals: {{ user.meals or 'All meals' }}
+                </div>
+              </div>
+              <form method="post">
+                <input type="hidden" name="action" value="delete_favorite" />
+                <input type="hidden" name="favorite_id" value="{{ fav.id }}" />
+                <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <div class="text-muted">No favorites yet. Add one to start tracking.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h2 class="h5">Preferences</h2>
+        <form method="post">
+          <input type="hidden" name="action" value="update_preferences" />
+          <div class="mb-3">
+            <label class="form-label">Dining halls</label>
+            {% for hall in dining_halls_options %}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="dining_halls" value="{{ hall }}" {% if hall in user.dining_halls_list() %}checked{% endif %}>
+              <label class="form-check-label">{{ hall }}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Meals</label>
+            {% for meal in meal_options %}
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="meals" value="{{ meal }}" {% if meal in user.meals_list() %}checked{% endif %}>
+              <label class="form-check-label">{{ meal }}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notification frequency</label>
+            <select class="form-select" name="notification_frequency">
+              <option value="every_morning" {% if user.notification_frequency == 'every_morning' %}selected{% endif %}>Check every morning</option>
+              <option value="once_per_day" {% if user.notification_frequency == 'once_per_day' %}selected{% endif %}>Check once per day</option>
+            </select>
+          </div>
+          <button class="btn btn-danger" type="submit">Save preferences</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Upcoming matches</h2>
+          <form method="post">
+            <input type="hidden" name="action" value="manual_check" />
+            <button id="manual-check-btn" class="btn btn-primary" type="submit">Run menu check now</button>
+          </form>
+        </div>
+
+        {% if upcoming_matches %}
+        <div class="table-responsive">
+          <table class="table table-sm align-middle">
+            <thead>
+              <tr><th>Favorite</th><th>Menu Item</th><th>Dining Hall</th><th>Meal</th><th>Date</th></tr>
+            </thead>
+            <tbody>
+              {% for match in upcoming_matches %}
+              <tr>
+                <td>{{ match.favorite_item_name }}</td>
+                <td>{{ match.menu_item_name }}</td>
+                <td>{{ match.dining_hall }}</td>
+                <td>{{ match.meal or 'N/A' }}</td>
+                <td>{{ match.menu_date }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="alert alert-light border">
+          <p class="mb-2">No matches yet. None of your favorites appear on the menu in the current lookahead window.</p>
+          <div class="table-responsive">
+            <table class="table table-sm table-secondary mb-0">
+              <thead><tr><th>Favorite</th><th>Dining Hall</th><th>Meal</th><th>Date</th></tr></thead>
+              <tbody><tr><td>Mac &amp; Cheese (example)</td><td>Gordon Avenue Market</td><td>Dinner</td><td>2025-02-21</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h5">Sample upcoming menu (demo)</h2>
+        <p class="small text-muted">In the hosted demo, external Nutrislice API calls may be disabled, so this section uses sample data to illustrate how matches will appear.</p>
+        <div class="table-responsive">
+          <table class="table table-sm mb-0">
+            <thead><tr><th>Date</th><th>Dining Hall</th><th>Meal</th><th>Item</th></tr></thead>
+            <tbody>
+              <tr><td>2026-02-22</td><td>Gordon Avenue Market</td><td>Dinner</td><td>Spicy Chicken</td></tr>
+              <tr><td>2026-02-23</td><td>Four Lakes Market</td><td>Lunch</td><td>Veggie Pizza</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const manualBtn = document.getElementById('manual-check-btn');
+  if (manualBtn) {
+    manualBtn.closest('form').addEventListener('submit', () => {
+      manualBtn.disabled = true;
+      manualBtn.textContent = 'Checking...';
+    });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero-gradient text-white rounded-4 p-4 p-md-5 shadow-sm mb-5">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-8">
+      <h1 class="display-5 fw-bold">Never miss your favorite dining hall meals again.</h1>
+      <p class="lead mb-4">Track your top UW–Madison dining items and see when they show up at Gordon, Four Lakes, Rheta’s, and more.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-light btn-lg" href="{{ url_for('signup') }}">Get started</a>
+        <a class="btn btn-outline-light btn-lg" href="{{ url_for('login') }}">Log in</a>
+        <a class="btn btn-link text-white" href="{{ url_for('demo_login') }}">Try demo</a>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="bg-white text-dark rounded-3 p-3">
+        <h2 class="h6 text-uppercase text-muted">Quick value</h2>
+        <ul class="mb-0 ps-3">
+          <li>Save favorites in seconds</li>
+          <li>Check menus on-demand</li>
+          <li>Get alert-ready match tracking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <h2 class="h3 mb-3">How it works</h2>
+  <div class="row g-3">
+    <div class="col-md-4"><div class="card h-100 shadow-sm"><div class="card-body"><h3 class="h5">1. Create an account</h3><p class="mb-0 text-muted">Sign up in under a minute, or jump in with the demo account.</p></div></div></div>
+    <div class="col-md-4"><div class="card h-100 shadow-sm"><div class="card-body"><h3 class="h5">2. Save favorites</h3><p class="mb-0 text-muted">Add the meals you care about most, from mac and cheese to late-night comfort food.</p></div></div></div>
+    <div class="col-md-4"><div class="card h-100 shadow-sm"><div class="card-body"><h3 class="h5">3. Run menu checks</h3><p class="mb-0 text-muted">See exactly where and when your favorites appear across UW dining halls.</p></div></div></div>
+  </div>
+</section>
+
+<section class="mb-5">
+  <h2 class="h3 mb-3">Features</h2>
+  <div class="row g-3">
+    <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><h3 class="h6">Track multiple dining halls</h3><p class="small text-muted mb-0">Monitor Gordon, Four Lakes, Rheta's, and more in one place.</p></div></div></div>
+    <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><h3 class="h6">Filter by meal</h3><p class="small text-muted mb-0">Tune alerts for breakfast, lunch, and dinner preferences.</p></div></div></div>
+    <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><h3 class="h6">Dashboard control center</h3><p class="small text-muted mb-0">Manage favorites, preferences, and upcoming matches quickly.</p></div></div></div>
+    <div class="col-md-6 col-lg-3"><div class="card h-100"><div class="card-body"><h3 class="h6">Email-style alerts pipeline</h3><p class="small text-muted mb-0">Backend alert flow is designed for scheduled checks and notifications.</p></div></div></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="h3 mb-3">Dashboard preview</h2>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="muted-card rounded p-3 h-100">
+            <h3 class="h6">Favorites</h3>
+            <span class="badge text-bg-danger">Mac &amp; Cheese</span>
+            <span class="badge text-bg-danger">Spicy Chicken Sandwich</span>
+            <span class="badge text-bg-danger">Cheese Curds</span>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="muted-card rounded p-3 h-100">
+            <h3 class="h6">Upcoming matches</h3>
+            <div class="table-responsive">
+              <table class="table table-sm mb-0">
+                <thead><tr><th>Favorite</th><th>Hall</th><th>Meal</th><th>Date</th></tr></thead>
+                <tbody>
+                  <tr><td>Mac &amp; Cheese</td><td>Gordon Avenue Market</td><td>Dinner</td><td>2026-02-22</td></tr>
+                  <tr><td>Cheese Curds</td><td>Four Lakes Market</td><td>Lunch</td><td>2026-02-23</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
