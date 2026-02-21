@@ -1,11 +1,118 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="p-5 bg-white rounded-3 shadow-sm">
-  <h1 class="display-6">UW–Madison Dining Hall Menu Alerts</h1>
-  <p class="lead">
-    Track your favorite foods and get email alerts whenever they appear on Nutrislice menus.
-  </p>
-  <a class="btn btn-danger" href="{{ url_for('signup') }}">Create account</a>
-  <a class="btn btn-outline-secondary" href="{{ url_for('login') }}">Log in</a>
+<section class="bg-white rounded-4 shadow-sm p-4 p-md-5 mb-4">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <span class="badge text-bg-danger mb-3">UW–Madison Dining Tool</span>
+      <h1 class="display-5 fw-bold mb-3">Never miss your favorite dining hall meals again.</h1>
+      <p class="lead text-secondary mb-4">
+        Track your top UW–Madison dining items and see when they show up at Gordon, Four Lakes,
+        Rheta’s, and more.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-danger btn-lg" href="{{ url_for('signup') }}">Get started</a>
+        <a class="btn btn-outline-secondary btn-lg" href="{{ url_for('login') }}">Log in</a>
+        <a class="btn btn-link btn-lg text-decoration-none" href="{{ url_for('demo_login') }}">Try demo</a>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card border-0 bg-light">
+        <div class="card-body">
+          <h2 class="h5">Why students use it</h2>
+          <ul class="mb-0 text-secondary">
+            <li>Save the exact dishes you actually care about.</li>
+            <li>Check multiple halls and meals in one place.</li>
+            <li>Quickly scan upcoming matches from your dashboard.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-4">
+  <h2 class="h3 mb-3">How it works</h2>
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 text-danger">1. Create an account</h3>
+          <p class="mb-0 text-secondary">Sign up in under a minute, or use the demo for a quick tour.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 text-danger">2. Save favorites</h3>
+          <p class="mb-0 text-secondary">Add your go-to menu items and set your preferred dining halls/meals.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 text-danger">3. Run menu checks</h3>
+          <p class="mb-0 text-secondary">Check now and instantly see where your favorites appear.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-4">
+  <h2 class="h3 mb-3">Features</h2>
+  <div class="row g-3">
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm"><div class="card-body"><strong>Track multiple dining halls</strong></div></div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm"><div class="card-body"><strong>Filter by meal (breakfast, lunch, dinner)</strong></div></div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm"><div class="card-body"><strong>Dashboard to manage your favorites</strong></div></div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="card h-100 shadow-sm"><div class="card-body"><strong>Email-style alerts pipeline</strong></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="mb-2">
+  <h2 class="h3 mb-3">Dashboard preview</h2>
+  <div class="card shadow-sm">
+    <div class="card-body bg-light rounded-3">
+      <div class="row g-3">
+        <div class="col-md-5">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="h6">Favorites</h3>
+              <span class="badge text-bg-danger mb-2">Mac &amp; Cheese</span>
+              <span class="badge text-bg-danger mb-2">Spicy Chicken Sandwich</span>
+              <span class="badge text-bg-danger mb-2">Cheese Curds</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="card h-100">
+            <div class="card-body">
+              <h3 class="h6">Upcoming matches</h3>
+              <table class="table table-sm mb-0">
+                <thead><tr><th>Item</th><th>Hall</th><th>Meal</th></tr></thead>
+                <tbody>
+                  <tr><td>Mac &amp; Cheese</td><td>Gordon</td><td>Dinner</td></tr>
+                  <tr><td>Chicken Sandwich</td><td>Four Lakes</td><td>Lunch</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="text-center text-muted small mt-4">
+  Built by a UW–Madison student · <a href="#" class="text-muted">GitHub repo</a>
 </div>
 {% endblock %}
