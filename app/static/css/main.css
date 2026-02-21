@@ -1,0 +1,233 @@
+:root {
+  --uw-red: #c5050c;
+  --uw-red-soft: #e61e24;
+  --bg-light: #f5f5f5;
+  --text-dark: #1f2937;
+  --card-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+body.app-body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  background: var(--bg-light);
+}
+
+/*
+  Non-trivial: use a fluid shell so ultra-wide displays (or browser zoom-out)
+  don't leave oversized side gutters from Bootstrap's fixed .container widths.
+*/
+.app-shell {
+  width: min(1720px, 97vw);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 1.8vw, 2.5rem);
+}
+
+.top-accent-bar {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--uw-red), var(--uw-red-soft));
+}
+
+.app-navbar {
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.06);
+}
+
+.text-brand-red {
+  color: var(--uw-red);
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+.btn {
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-danger {
+  background-color: var(--uw-red);
+  border-color: var(--uw-red);
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #ab040a;
+  border-color: #ab040a;
+  transform: translateY(-1px);
+}
+
+.btn-outline-danger:hover,
+.btn-outline-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.app-card {
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow);
+}
+
+.hero-shell {
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: var(--card-shadow);
+  padding: 2rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #4b5563;
+  max-width: 62ch;
+}
+
+.section-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.step-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--uw-red);
+  font-weight: 700;
+}
+
+.feature-icon {
+  font-size: 1.3rem;
+  color: var(--uw-red);
+}
+
+.favorite-chip {
+  background: var(--uw-red);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.chip-delete-btn {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  opacity: 0.85;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+.chip-delete-btn:hover {
+  opacity: 1;
+}
+
+.pref-option {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.75rem;
+  display: flex;
+  align-items: center;
+  background: #fff;
+}
+
+.meal-pill {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #fff;
+}
+
+.status-box,
+.stat-chip {
+  border: 1px solid #eceff3;
+  border-radius: 0.8rem;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.stat-chip span {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.stat-chip strong {
+  font-size: 1.1rem;
+}
+
+.app-table thead th {
+  border-bottom: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.app-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.empty-state {
+  text-align: center;
+  border: 1px dashed #d1d5db;
+  border-radius: 0.9rem;
+  padding: 2rem 1rem;
+}
+
+.empty-state i,
+.empty-state-sm i {
+  color: var(--uw-red);
+  font-size: 1.4rem;
+}
+
+.empty-state-sm {
+  text-align: center;
+  border: 1px dashed #d1d5db;
+  border-radius: 0.9rem;
+  padding: 1.25rem 1rem;
+}
+
+.auth-shell {
+  min-height: 72vh;
+}
+
+.auth-card {
+  max-width: 530px;
+}
+
+.demo-band {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+/* Non-trivial: tune spacing and card framing on smaller screens for better visual rhythm. */
+@media (max-width: 991.98px) {
+  .app-shell {
+    width: 100%;
+    padding-inline: 0.85rem;
+  }
+
+  .hero-shell {
+    padding: 1.5rem;
+  }
+
+  .auth-shell {
+    min-height: auto;
+  }
+}
