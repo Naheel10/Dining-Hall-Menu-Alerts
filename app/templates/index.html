@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-5 bg-white rounded-3 shadow-sm">
+  <h1 class="display-6">UW–Madison Dining Hall Menu Alerts</h1>
+  <p class="lead">
+    Track your favorite foods and get email alerts whenever they appear on Nutrislice menus.
+  </p>
+  <a class="btn btn-danger" href="{{ url_for('signup') }}">Create account</a>
+  <a class="btn btn-outline-secondary" href="{{ url_for('login') }}">Log in</a>
+</div>
+{% endblock %}
