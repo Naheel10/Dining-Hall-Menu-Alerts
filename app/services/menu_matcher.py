@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from datetime import date, timedelta
 import logging
+import os
+from flask import current_app
 
 from flask import current_app, url_for
 
@@ -62,43 +64,40 @@ def _fetch_menus_for_user(user: User, lookahead_days: int) -> list[dict]:
     return menus
 
 
-def run_menu_check_for_user(user_id: int, send_email: bool = True) -> list[dict]:
-    """Fetch menus, find matches, persist records, and optionally send email."""
+def run_menu_check_for_user(user_id: int, send_email: bool = True):
+    """
+    Run a menu check for a single user.
+
+    In demo / production mode we don't want this to ever crash the request,
+    even if Nutrislice or SMTP is broken. All errors are caught and we either
+    return an empty list or log what went wrong.
+    """
+    from app.models import User  
+
     user = User.query.get(user_id)
     if not user:
         return []
 
-    favorites = Favorite.query.filter_by(user_id=user.id).all()
-    if not favorites:
+    if os.getenv("DISABLE_NUTRISLICE", "false").lower() == "true":
+        current_app.logger.info(
+            "DISABLE_NUTRISLICE=true – skipping Nutrislice calls and returning no matches."
+        )
         return []
 
-    menus = _fetch_menus_for_user(user, current_app.config["MENU_LOOKAHEAD_DAYS"])
-    matches = find_matches_for_user(user, menus, favorites)
+    try:
+        lookahead_days = current_app.config.get("MENU_LOOKAHEAD_DAYS", 3)
+        menus = _fetch_menus_for_user(user, lookahead_days)
+        matches = _find_matches_for_user(user, menus)
 
-    MenuMatch.query.filter_by(user_id=user.id).delete()
-    for match in matches:
-        db.session.add(
-            MenuMatch(
-                user_id=user.id,
-                favorite_item_name=match["favorite_item_name"],
-                menu_item_name=match["menu_item_name"],
-                dining_hall=match["dining_hall"],
-                meal=match["meal"],
-                menu_date=match["menu_date"],
-            )
+        if send_email and matches:
+            _send_alerts_for_matches(user, matches)
+
+        return matches
+    except Exception:
+        current_app.logger.exception(
+            "Error while running menu check for user_id=%s", user_id
         )
-    db.session.commit()
-
-    if send_email and matches and current_app.extensions.get("email_client"):
-        email_client = current_app.extensions["email_client"]
-        dashboard_url = url_for("dashboard", _external=True)
-        subject, html_body, text_body = build_match_email_content(user.email, matches, dashboard_url)
-        try:
-            email_client.send_html_email(user.email, subject, html_body, text_body)
-        except Exception as exc:  # noqa: BLE001
-            LOGGER.exception("Failed to send alert to %s: %s", user.email, exc)
-
-    return matches
+        return []
 
 
 def run_menu_check_for_all_users(send_email: bool = True) -> dict[str, int]:
