@@ -1,23 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-6 col-lg-5">
-    <div class="card shadow-sm border-0">
-      <div class="card-body p-4">
-        <h1 class="h4 mb-2">Create your account</h1>
-        <p class="text-muted">Start tracking your favorite UW dining menu items.</p>
-        <form method="post" class="mt-3">
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input class="form-control" name="email" type="email" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input class="form-control" name="password" type="password" required />
-          </div>
-          <button class="btn btn-danger w-100" type="submit">Create account</button>
-        </form>
-      </div>
+<div class="auth-shell d-flex align-items-center justify-content-center py-3 py-md-5">
+  <div class="card app-card border-0 auth-card w-100">
+    <div class="card-body p-4 p-md-5">
+      <p class="text-center text-uppercase text-muted small mb-2">UW Dining Alerts</p>
+      <h1 class="h3 text-center mb-2">Create your account</h1>
+      <p class="text-muted text-center mb-4">Start tracking your favorite UW dining menu items in minutes.</p>
+
+      <form method="post" class="d-grid gap-3">
+        <div class="form-floating">
+          <input class="form-control" id="signup-email" name="email" type="email" placeholder="name@example.com" required />
+          <label for="signup-email">Email</label>
+        </div>
+        <div class="form-floating">
+          <input class="form-control" id="signup-password" name="password" type="password" placeholder="Password" required />
+          <label for="signup-password">Password</label>
+        </div>
+        <button class="btn btn-danger btn-lg w-100" type="submit">Create account</button>
+      </form>
+
+      <p class="text-center text-muted small mt-4 mb-0">
+        Already have an account?
+        <a href="{{ url_for('login') }}" class="text-decoration-none">Log in</a>
+      </p>
     </div>
   </div>
 </div>
