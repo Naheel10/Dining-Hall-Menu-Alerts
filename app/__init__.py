@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import datetime
 
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
@@ -23,6 +24,8 @@ DEFAULT_DINING_HALLS = [
     "Liz's Market",
 ]
 DEFAULT_MEALS = ["Breakfast", "Lunch", "Dinner"]
+DEMO_EMAIL = "demo@demo.com"
+DEMO_FAVORITES = ["Mac & Cheese", "Spicy Chicken Sandwich", "Cheese Curds"]
 
 
 def create_app(test_config: dict | None = None) -> Flask:
@@ -56,6 +59,28 @@ def current_user() -> User | None:
     return User.query.get(uid)
 
 
+def _seed_demo_user(demo_user: User) -> None:
+    """Seed default visual data so recruiters can explore an interesting dashboard."""
+    if not demo_user.dining_halls:
+        demo_user.dining_halls = ",".join(DEFAULT_DINING_HALLS[:3])
+    if not demo_user.meals:
+        demo_user.meals = ",".join(DEFAULT_MEALS)
+    if not demo_user.notification_frequency:
+        demo_user.notification_frequency = "once_per_day"
+
+    existing_names = {fav.item_name for fav in Favorite.query.filter_by(user_id=demo_user.id).all()}
+    for item_name in DEMO_FAVORITES:
+        if item_name in existing_names:
+            continue
+        db.session.add(
+            Favorite(
+                user_id=demo_user.id,
+                item_name=item_name,
+                normalized_name=normalize_item_name(item_name),
+            )
+        )
+
+
 def register_routes(app: Flask) -> None:
     @app.context_processor
     def inject_user():
@@ -63,7 +88,35 @@ def register_routes(app: Flask) -> None:
 
     @app.get("/")
     def index():
+        user = current_user()
+        if user:
+            return redirect(url_for("dashboard"))
         return render_template("index.html")
+
+    @app.get("/demo-login")
+    def demo_login():
+        demo_user = User.query.filter_by(email=DEMO_EMAIL).first()
+
+        if not demo_user:
+            demo_user = User(
+                email=DEMO_EMAIL,
+                dining_halls=",".join(DEFAULT_DINING_HALLS[:3]),
+                meals=",".join(DEFAULT_MEALS),
+                notification_frequency="once_per_day",
+            )
+            # Recruiter/demo account: this user can be auto-logged in to showcase the product UX.
+            # We still set a password hash so the account is structurally identical to normal users.
+            demo_user.set_password("demo-account-safe-default")
+            db.session.add(demo_user)
+            db.session.flush()
+
+        _seed_demo_user(demo_user)
+        db.session.commit()
+
+        # This route is intentionally passwordless only for the single demo account above.
+        session["user_id"] = demo_user.id
+        flash("You are now exploring the demo account dashboard.", "success")
+        return redirect(url_for("dashboard"))
 
     @app.route("/signup", methods=["GET", "POST"])
     def signup():
@@ -145,6 +198,8 @@ def register_routes(app: Flask) -> None:
                 flash("Preferences updated.", "success")
             elif action == "manual_check":
                 matches = run_menu_check_for_user(user.id, send_email=True)
+                user.last_checked_at = datetime.utcnow()
+                db.session.commit()
                 flash(f"Manual check complete. Found {len(matches)} matches.", "success")
             return redirect(url_for("dashboard"))
 

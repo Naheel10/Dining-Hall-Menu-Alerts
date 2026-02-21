@@ -19,6 +19,7 @@ class User(db.Model):
     meals = db.Column(db.Text, default="")
     notification_frequency = db.Column(db.String(50), default="once_per_day")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_checked_at = db.Column(db.DateTime, nullable=True)
 
     favorites = db.relationship(
         "Favorite", backref="user", cascade="all, delete-orphan", lazy=True
