@@ -1,15 +1,10 @@
 # UW Dining Alerts
 
-[Live Demo → uwdiningalerts.com](https://www.uwdiningalerts.com/)
+[UWDiningalerts.com](https://www.uwdiningalerts.com/)
 
-UW Dining Alerts is a production-ready web app that helps UW–Madison students track favorite dining hall menu items and get notified when those meals appear.
+UW Dining Alerts is a web app that helps UW–Madison students track favorite dining hall menu items and get notified when those meals appear.
 
-## Why this project stands out
-
-- **Real user value:** solves a daily student pain point (missing favorite dining meals).
-- **End-to-end product:** authentication, preferences, menu ingestion, matching logic, and email delivery.
-- **Production deployment:** containerized Flask app running live at **uwdiningalerts.com**.
-- **Engineering practices:** modular service layer, environment-based config, and automated tests.
+<img width="400" height="500" alt="uwdiningalerts" src="https://github.com/user-attachments/assets/6652c82b-ae95-4a35-a484-5de2fcb4d6a1" />
 
 ## Core Features
 
@@ -24,60 +19,29 @@ UW Dining Alerts is a production-ready web app that helps UW–Madison students 
 ## Tech Stack
 
 - **Backend:** Python 3.11, Flask
-- **Database:** SQLAlchemy (SQLite locally, PostgreSQL-ready via `DATABASE_URL`)
+- **Database:** SQLAlchemy (SQLite locally, PostgreSQL production)
 - **Frontend:** Jinja templates, Bootstrap 5
 - **Infra/Deploy:** Docker, Gunicorn
 - **Testing:** pytest
 
-## Architecture Snapshot
+## Architecture
 
 ```text
-app/
-├── models.py                 # Users + favorites data model
-├── services/
-│   ├── nutrislice_client.py  # Menu retrieval + normalization
-│   ├── menu_matcher.py       # Matching logic for favorites
-│   └── email_service.py      # Alert email formatting/sending
-└── templates/                # UI views
+├── app.py                        # WSGI/Gunicorn entrypoint
+├── app/
+│   ├── __init__.py               # App factory, routes, CLI hook registration
+│   ├── config.py                 # Environment-driven config (DB, SMTP, lookahead)
+│   ├── models.py                 # SQLAlchemy models: User, Favorite, MenuMatch
+│   ├── services/
+│   │   ├── nutrislice_client.py  # Menu retrieval + normalization
+│   │   ├── menu_matcher.py       # Matching engine + scan orchestration
+│   │   └── email_service.py      # Alert email composition + SMTP delivery
+│   ├── templates/                # Landing, auth, dashboard views
+│   └── static/css/main.css       # UI styling
+└── tests/
+    ├── test_auth_routes.py       # Auth + dashboard route behavior
+    ├── test_matching.py          # Matching correctness
+    └── test_email_format.py      # Email formatting checks
 ```
 
-## Local Setup
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-export FLASK_APP=app.py
-flask run
-```
-
-Open `http://127.0.0.1:5000`
-
-## Configuration
-
-Create a `.env` file:
-
-```bash
-SECRET_KEY=replace-me
-DATABASE_URL=sqlite:///menu_alerts.db
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
-FROM_EMAIL=your-email@gmail.com
-MENU_LOOKAHEAD_DAYS=3
-```
-
-## Run Checks + Tests
-
-```bash
-# run menu scan manually
-python -m app run_menu_check
-
-# run tests
-pytest
-```
-
-## Screenshots
-
-Screenshots from the live deployment are attached in this update (homepage, login, signup).
