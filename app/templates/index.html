@@ -1,62 +1,98 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="hero-shell mb-5">
-  <div class="row g-4 align-items-center">
-    <div class="col-lg-7">
-      <span class="badge rounded-pill text-bg-light border text-danger-emphasis mb-3">UW–Madison Dining Tool</span>
-      <h1 class="hero-title mb-3">Never miss your favorite dining hall meals again.</h1>
-      <p class="hero-subtitle mb-4">
-        Track your top UW–Madison dining items and see when they show up at Gordon, Four Lakes,
-        Rheta’s, and more.
-      </p>
-      <div class="d-flex flex-wrap gap-2">
-        <a class="btn btn-danger btn-lg" href="{{ url_for('signup') }}">Get started</a>
-        <a class="btn btn-outline-secondary btn-lg" href="{{ url_for('login') }}">Log in</a>
-        <a class="btn btn-link btn-lg text-decoration-none text-secondary" href="{{ url_for('demo_login') }}">Try demo</a>
+<section class="landing-section hero-band">
+  <div class="hero-shell">
+    <div class="row g-4 g-lg-5 align-items-center">
+      <div class="col-lg-7">
+        <span class="hero-label">UW–Madison Dining Tool</span>
+        <h1 class="hero-title mb-3">Never miss your favorite dining hall meals again.</h1>
+        <p class="hero-subtitle mb-4">
+          Track your top UW–Madison dining items and see when they show up at Gordon, Four Lakes,
+          Rheta’s, and more.
+        </p>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <a class="btn btn-danger btn-lg" href="{{ url_for('signup') }}">Get started</a>
+          <a class="btn btn-outline-secondary btn-lg" href="{{ url_for('login') }}">Log in</a>
+          <a class="btn btn-ghost btn-lg" href="{{ url_for('demo_login') }}">Try demo</a>
+        </div>
+        <p class="hero-status mb-0">✅ Demo ready · 🔒 No real data required · Hosted on Render</p>
+      </div>
+      <div class="col-lg-5">
+        <aside class="card border-0 app-card why-card h-100">
+          <div class="card-body p-4 p-xl-5">
+            <h2 class="h5 mb-3">Why students use it</h2>
+            <ul class="list-unstyled mb-0 d-grid gap-3 text-secondary">
+              <li class="d-flex gap-2"><i class="bi bi-check2-circle text-danger"></i><span>Save the exact dishes you actually care about.</span></li>
+              <li class="d-flex gap-2"><i class="bi bi-check2-circle text-danger"></i><span>Check multiple halls and meals in one place.</span></li>
+              <li class="d-flex gap-2"><i class="bi bi-check2-circle text-danger"></i><span>Quickly scan upcoming matches from your dashboard.</span></li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </div>
-    <div class="col-lg-5">
-      <div class="card border-0 app-card h-100">
-        <div class="card-body p-4">
-          <h2 class="h5 mb-3">Why students use it</h2>
-          <ul class="list-unstyled mb-0 d-grid gap-3 text-secondary">
-            <li class="d-flex gap-2"><i class="bi bi-check2-circle text-danger"></i><span>Save the exact dishes you actually care about.</span></li>
-            <li class="d-flex gap-2"><i class="bi bi-check2-circle text-danger"></i><span>Check multiple halls and meals in one place.</span></li>
-            <li class="d-flex gap-2"><i class="bi bi-check2-circle text-danger"></i><span>Quickly scan upcoming matches from your dashboard.</span></li>
-          </ul>
+  </div>
+</section>
+
+<section class="landing-section stats-band py-4 py-md-5">
+  <div class="row g-3 g-md-4">
+    <div class="col-12 col-md-4">
+      <div class="stat-item h-100">
+        <i class="bi bi-shop-window"></i>
+        <div>
+          <strong>4 dining halls tracked</strong>
+          <p class="mb-0">Watch Gordon, Four Lakes, Rheta’s, and more.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="stat-item h-100">
+        <i class="bi bi-funnel"></i>
+        <div>
+          <strong>Breakfast, lunch, and dinner filters</strong>
+          <p class="mb-0">Find the exact meal windows you care about.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="stat-item h-100">
+        <i class="bi bi-mortarboard"></i>
+        <div>
+          <strong>Built for UW–Madison students</strong>
+          <p class="mb-0">Designed around real campus dining routines.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="mb-5">
-  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+<section class="landing-section section-band-light">
+  <div class="section-head mb-4 mb-lg-5">
+    <p class="section-kicker mb-2">Get started in minutes</p>
     <h2 class="section-title mb-0">How it works</h2>
   </div>
-  <div class="row g-3">
-    <div class="col-md-4">
-      <article class="card app-card h-100 border-0">
+  <div class="row g-3 g-lg-4">
+    <div class="col-12 col-md-4">
+      <article class="card app-card h-100 border-0 step-card">
         <div class="card-body p-4">
-          <div class="step-icon mb-3"><i class="bi bi-person-plus"></i><span>1</span></div>
+          <div class="step-badge mb-3">1</div>
           <h3 class="h5">Create an account</h3>
           <p class="text-secondary mb-0">Sign up in under a minute, then head to your dashboard.</p>
         </div>
       </article>
     </div>
-    <div class="col-md-4">
-      <article class="card app-card h-100 border-0">
+    <div class="col-12 col-md-4">
+      <article class="card app-card h-100 border-0 step-card">
         <div class="card-body p-4">
-          <div class="step-icon mb-3"><i class="bi bi-bookmark-heart"></i><span>2</span></div>
+          <div class="step-badge mb-3">2</div>
           <h3 class="h5">Save favorites</h3>
           <p class="text-secondary mb-0">Add go-to meals so you only watch what you actually want.</p>
         </div>
       </article>
     </div>
-    <div class="col-md-4">
-      <article class="card app-card h-100 border-0">
+    <div class="col-12 col-md-4">
+      <article class="card app-card h-100 border-0 step-card">
         <div class="card-body p-4">
-          <div class="step-icon mb-3"><i class="bi bi-search"></i><span>3</span></div>
+          <div class="step-badge mb-3">3</div>
           <h3 class="h5">Run menu checks</h3>
           <p class="text-secondary mb-0">Scan upcoming menus across halls and meals in seconds.</p>
         </div>
@@ -65,83 +101,92 @@
   </div>
 </section>
 
-<section class="mb-5">
-  <h2 class="section-title mb-3">Features</h2>
-  <div class="row g-3">
-    <div class="col-sm-6 col-lg-3">
-      <article class="card app-card border-0 h-100">
+<section class="landing-section section-band-muted">
+  <div class="section-head mb-4 mb-lg-5">
+    <p class="section-kicker mb-2">Built for daily use</p>
+    <h2 class="section-title mb-0">Features</h2>
+  </div>
+  <div class="row g-3 g-lg-4">
+    <div class="col-12 col-md-6">
+      <article class="card app-card border-0 h-100 feature-card">
         <div class="card-body p-4">
           <i class="bi bi-geo-alt feature-icon"></i>
-          <h3 class="h6 mt-3">Track multiple dining halls</h3>
-          <p class="small text-secondary mb-0">Watch Gordon, Four Lakes, Rheta’s, and more from one place.</p>
+          <h3 class="h5 mt-3">Track multiple dining halls</h3>
+          <p class="text-secondary mb-0">Watch Gordon, Four Lakes, Rheta’s, and more from one place.</p>
         </div>
       </article>
     </div>
-    <div class="col-sm-6 col-lg-3">
-      <article class="card app-card border-0 h-100">
+    <div class="col-12 col-md-6">
+      <article class="card app-card border-0 h-100 feature-card">
         <div class="card-body p-4">
           <i class="bi bi-filter-circle feature-icon"></i>
-          <h3 class="h6 mt-3">Filter by meal</h3>
-          <p class="small text-secondary mb-0">Target breakfast, lunch, and dinner windows separately.</p>
+          <h3 class="h5 mt-3">Filter by meal</h3>
+          <p class="text-secondary mb-0">Target breakfast, lunch, and dinner windows separately.</p>
         </div>
       </article>
     </div>
-    <div class="col-sm-6 col-lg-3">
-      <article class="card app-card border-0 h-100">
+    <div class="col-12 col-md-6">
+      <article class="card app-card border-0 h-100 feature-card">
         <div class="card-body p-4">
           <i class="bi bi-columns-gap feature-icon"></i>
-          <h3 class="h6 mt-3">Dashboard controls</h3>
-          <p class="small text-secondary mb-0">Manage favorites, halls, and frequency with a clean workflow.</p>
+          <h3 class="h5 mt-3">Dashboard controls</h3>
+          <p class="text-secondary mb-0">Manage favorites, halls, and frequency with a clean workflow.</p>
         </div>
       </article>
     </div>
-    <div class="col-sm-6 col-lg-3">
-      <article class="card app-card border-0 h-100">
+    <div class="col-12 col-md-6">
+      <article class="card app-card border-0 h-100 feature-card">
         <div class="card-body p-4">
           <i class="bi bi-envelope-paper feature-icon"></i>
-          <h3 class="h6 mt-3">Email-style alerts pipeline</h3>
-          <p class="small text-secondary mb-0">Set up repeat checks and track matches like a simple alert feed.</p>
+          <h3 class="h5 mt-3">Email-style alerts pipeline</h3>
+          <p class="text-secondary mb-0">Set up repeat checks and track matches like a simple alert feed.</p>
         </div>
       </article>
     </div>
   </div>
 </section>
 
-<section class="mb-4">
-  <h2 class="section-title mb-3">Dashboard preview</h2>
-  <!-- Static product preview for marketing context; does not use backend data. -->
-  <div class="card app-card border-0">
-    <div class="card-body p-4">
+<section class="landing-section section-band-light">
+  <div class="section-head mb-4">
+    <p class="section-kicker mb-2">See the experience</p>
+    <h2 class="section-title mb-0">Dashboard preview</h2>
+  </div>
+  <div class="card app-card border-0 dashboard-preview">
+    <div class="preview-topbar">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="card-body p-3 p-md-4 p-xl-5">
       <div class="row g-4">
         <div class="col-md-5">
-          <h3 class="h6 text-uppercase text-muted mb-3">Favorites</h3>
-          <div class="d-flex flex-wrap gap-2">
-            <span class="favorite-chip">Mac &amp; Cheese</span>
-            <span class="favorite-chip">Spicy Chicken</span>
-            <span class="favorite-chip">Cheese Curds</span>
+          <div class="preview-panel h-100">
+            <h3 class="h6 text-uppercase text-muted mb-3">Favorites</h3>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="favorite-chip">Mac &amp; Cheese</span>
+              <span class="favorite-chip">Spicy Chicken</span>
+              <span class="favorite-chip">Cheese Curds</span>
+            </div>
           </div>
         </div>
         <div class="col-md-7">
-          <h3 class="h6 text-uppercase text-muted mb-3">Upcoming matches</h3>
-          <div class="table-responsive">
-            <table class="table table-sm app-table mb-0">
-              <thead>
-                <tr><th>Hall</th><th>Meal</th><th>Date</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Gordon</td><td><span class="badge text-bg-light">Dinner</span></td><td>Tue, Mar 05</td></tr>
-                <tr><td>Four Lakes</td><td><span class="badge text-bg-light">Lunch</span></td><td>Wed, Mar 06</td></tr>
-                <tr><td>Rheta’s</td><td><span class="badge text-bg-light">Breakfast</span></td><td>Thu, Mar 07</td></tr>
-              </tbody>
-            </table>
+          <div class="preview-panel h-100">
+            <h3 class="h6 text-uppercase text-muted mb-3">Upcoming matches</h3>
+            <div class="table-responsive">
+              <table class="table table-sm app-table mb-0">
+                <thead>
+                  <tr><th>Hall</th><th>Meal</th><th>Date</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Gordon</td><td><span class="badge text-bg-light">Dinner</span></td><td>Tue, Mar 05</td></tr>
+                  <tr><td>Four Lakes</td><td><span class="badge text-bg-light">Lunch</span></td><td>Wed, Mar 06</td></tr>
+                  <tr><td>Rheta’s</td><td><span class="badge text-bg-light">Breakfast</span></td><td>Thu, Mar 07</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
-
-<section class="demo-band text-center rounded-4 py-3 mt-4">
-  <small class="text-muted">Demo-ready — no real data required to explore the experience.</small>
+  <p class="preview-caption text-muted mb-0">Sample dashboard preview (demo data).</p>
 </section>
 {% endblock %}

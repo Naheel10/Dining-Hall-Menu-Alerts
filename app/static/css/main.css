@@ -2,14 +2,30 @@
   --uw-red: #c5050c;
   --uw-red-soft: #e61e24;
   --bg-light: #f5f5f5;
+  --band-light: #ffffff;
+  --band-muted: #f7f8fa;
   --text-dark: #1f2937;
   --card-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  --card-shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.06);
 }
 
 body.app-body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.6;
   color: var(--text-dark);
   background: var(--bg-light);
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 1rem;
+}
+
+.page-wrapper--nav {
+  padding-inline: 0.75rem;
 }
 
 .top-accent-bar {
@@ -53,46 +69,184 @@ body.app-body {
   transform: translateY(-1px);
 }
 
-.app-card {
-  border-radius: 1rem;
-  box-shadow: var(--card-shadow);
+.btn-ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #6b7280;
+}
+
+.btn-ghost:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.landing-section {
+  border-radius: 1.35rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #eceef3;
+  box-shadow: 0 2px 12px rgba(17, 24, 39, 0.04);
+}
+
+.hero-band {
+  background: linear-gradient(180deg, rgba(197, 5, 12, 0.09), rgba(197, 5, 12, 0.02));
+  padding: clamp(1rem, 2vw, 2rem);
 }
 
 .hero-shell {
   background: #fff;
   border-radius: 1.25rem;
   box-shadow: var(--card-shadow);
-  padding: 2rem;
+  padding: clamp(1.25rem, 2vw, 2rem);
+}
+
+.hero-label {
+  display: inline-flex;
+  border: 1px solid #efc3c5;
+  background: #fff;
+  color: #8f2228;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .hero-title {
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1.12;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
+  font-size: clamp(1.02rem, 1.4vw, 1.22rem);
   color: #4b5563;
   max-width: 62ch;
 }
 
-.section-title {
-  font-weight: 700;
-  letter-spacing: -0.01em;
+.hero-status {
+  color: #4b5563;
+  font-size: 0.95rem;
 }
 
-.step-icon {
+.why-card {
+  background: linear-gradient(180deg, #fff, #f9fafb);
+}
+
+.stats-band {
+  background: #fff;
+}
+
+.stat-item {
+  border: 1px solid #e8ebf1;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  background: #fcfdff;
+}
+
+.stat-item i {
+  color: var(--uw-red);
+  font-size: 1.2rem;
+}
+
+.stat-item strong {
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.stat-item p {
+  color: #6b7280;
+  font-size: 0.92rem;
+}
+
+.section-band-light {
+  background: var(--band-light);
+  padding: 1.25rem;
+}
+
+.section-band-muted {
+  background: var(--band-muted);
+  padding: 1.25rem;
+}
+
+.section-head {
+  max-width: 700px;
+}
+
+.section-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #8a919e;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.app-card {
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow-soft);
+}
+
+.step-card {
+  border: 1px solid #ecedf2;
+}
+
+.step-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(197, 5, 12, 0.12);
   color: var(--uw-red);
   font-weight: 700;
+}
+
+.feature-card {
+  min-height: 100%;
 }
 
 .feature-icon {
   font-size: 1.3rem;
   color: var(--uw-red);
+}
+
+.dashboard-preview {
+  overflow: hidden;
+}
+
+.preview-topbar {
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 1rem;
+  background: #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.preview-topbar span {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: #d1d5db;
+}
+
+.preview-panel {
+  border: 1px solid #e9edf3;
+  border-radius: 0.9rem;
+  padding: 1rem;
+  background: #fff;
 }
 
 .favorite-chip {
@@ -103,6 +257,11 @@ body.app-body {
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1;
+}
+
+.preview-caption {
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
 }
 
 .chip-delete-btn {
@@ -206,12 +365,45 @@ body.app-body {
   background: #fff;
 }
 
-/* Non-trivial: tune spacing and card framing on smaller screens for better visual rhythm. */
-@media (max-width: 991.98px) {
-  .hero-shell {
-    padding: 1.5rem;
+@media (min-width: 768px) {
+  .page-wrapper {
+    padding-inline: 1.5rem;
   }
 
+  .landing-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-band-light,
+  .section-band-muted {
+    padding: 1.75rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .page-wrapper {
+    padding-inline: 2rem;
+  }
+
+  .section-band-light,
+  .section-band-muted {
+    padding: 2.25rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .landing-section {
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .page-wrapper {
+    max-width: 1400px;
+  }
+}
+
+@media (max-width: 991.98px) {
   .auth-shell {
     min-height: auto;
   }
